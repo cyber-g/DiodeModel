@@ -49,10 +49,11 @@ def main():
     parser.add_argument('-n', '--npoints', type=int, default=250, help='Number of points in plot (default = 250)')
     parser.add_argument('-s', '--save', help='Save fit parameters to file', action="store_true")
     parser.add_argument('-f', '--fitfile', type=str, default="", nargs='?', help='Load fit parameters from specified file')
+    parser.add_argument('-d', '--delimiter', help='Delimiter in CSV', default="\t")
     args = parser.parse_args()
     
 #Read in data from file (V in volt, I in milliamp)
-    xdata, ydata = np.loadtxt(args.filename, unpack=True)
+    xdata, ydata = np.loadtxt(args.filename, unpack=True, delimiter=args.delimiter)
     if args.convert:           #Data is in A convert to mA
         ydata = ydata * 1000
     logydata = np.log10(ydata) #log of current to produce stable fit
